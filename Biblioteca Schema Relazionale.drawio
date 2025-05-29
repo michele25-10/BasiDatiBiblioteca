@@ -49,7 +49,7 @@
         <mxCell id="fyxhJUklmaxboCmO9rHA-15" value="Address" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="160" y="360" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fyxhJUklmaxboCmO9rHA-16" value="Joan" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="fyxhJUklmaxboCmO9rHA-16" value="Loan" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="40" y="440" width="50" height="30" as="geometry" />
         </mxCell>
         <mxCell id="fyxhJUklmaxboCmO9rHA-17" value="&lt;u&gt;Copy_Code&lt;/u&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
