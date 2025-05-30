@@ -56,8 +56,9 @@ CREATE TABLE book_author (
 CREATE TABLE loan (
     copy_code INT,
     serial_number VARCHAR(6), 
-    exit_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (copy_code, serial_number),
+    start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    return_date DATE DEFAULT NULL, 
+    PRIMARY KEY (copy_code, serial_number, start_date),
     FOREIGN KEY (copy_code) REFERENCES copy(code)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (serial_number) REFERENCES user(serial_number)
