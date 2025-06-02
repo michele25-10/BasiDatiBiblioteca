@@ -39,5 +39,6 @@
         <a href="/pages/book-author/index.php">Libri autori</a>
         <a href="/pages/author/index.php">Autori</a>
         <a href="/pages/report/index.php">Report</a>
+        <a href="/pages/book/search.php">Ricerca Libri</a>
     </div>
 </div>
