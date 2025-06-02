@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . '/../../config/connessione.php';
 include_once __DIR__ . '/../../common/navbar.php';
