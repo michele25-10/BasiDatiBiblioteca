@@ -1,1 +1,3 @@
-<?php echo "Hello World!"; ?>
+<?php
+header("Location: /pages/loan/index.php") 
+?>
