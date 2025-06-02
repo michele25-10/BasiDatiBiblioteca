@@ -4,6 +4,10 @@
     color: red;
 }
 
+.container{
+    padding: 20px;
+}
+
 /* Annulla gli effetti principali di water.css sul body */
 body {
     margin: 0 !important;
@@ -13,6 +17,42 @@ body {
     box-sizing: border-box;
 }
 
-.container{
-    padding: 20px;
+/* Annulla stile water.css sulle tabelle */
+table {
+    all: unset;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    color: black;
 }
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Annulla stile water.css sui bottoni */
+button {
+    all: unset;
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
