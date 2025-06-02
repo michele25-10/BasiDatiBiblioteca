@@ -1,0 +1,18 @@
+.error-message{
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
+}
+
+/* Annulla gli effetti principali di water.css sul body */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.container{
+    padding: 20px;
+}
