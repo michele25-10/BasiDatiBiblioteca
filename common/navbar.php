@@ -34,10 +34,10 @@
 <div class="navbar">
     <h1>Biblioteca</h1>
     <div class="nav-links">
-        <a href="/index.php">Home</a>
-        <a href="/pages/books/index.php">Libri</a>
-        <a href="/pages/users/index.php">Utenti</a>
-        <a href="/pages/loan/index.php">Prestiti</a>
+        <a href="/pages/loan/index.php">Prestiti Attivi</a>
+        <a href="/pages/history/index.php">Storico Prestiti</a>
+        <a href="/pages/book-author/index.php">Libri autori</a>
+        <a href="/pages/author/index.php">Autori</a>
         <a href="/pages/reports/index.php">Report</a>
     </div>
 </div>
