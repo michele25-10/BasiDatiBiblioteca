@@ -1,4 +1,5 @@
 <?php
+    include_once('../../common/navbar.php');
     include_once('../../config/connessione.php');
 
     $serial_number = mysqli_real_escape_string($link, $_POST["serial_number"]);
