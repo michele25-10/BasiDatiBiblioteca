@@ -1,0 +1,98 @@
+.error-message{
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
+}
+
+.container{
+    padding: 20px;
+}
+
+/*Testata con titolo + bottone che fa qualcosa*/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.header a {
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-return {
+    background-color: #007bff;
+}
+
+.btn-success{
+    background-color: #28a745;
+}
+
+/* Annulla gli effetti principali di water.css sul body */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Annulla stile water.css sulle tabelle */
+table {
+    all: unset;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    color: black;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Annulla stile water.css sui bottoni */
+button {
+    all: unset;
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
