@@ -37,15 +37,15 @@
 }
 
 .btn-delete {
-    background-color: #dc3545;
+    background-color: #dc3545 !important;
 }
 
 .btn-return {
-    background-color: #007bff;
+    background-color: #007bff !important;
 }
 
 .btn-success{
-    background-color: #28a745;
+    background-color: #28a745 !important;
 }
 
 /* Annulla gli effetti principali di water.css sul body */
@@ -90,9 +90,5 @@ button {
     cursor: pointer;
     text-align: center;
     font-size: 14px;
-}
-
-button:hover {
-    background-color: #0056b3;
 }
 

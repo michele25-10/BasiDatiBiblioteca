@@ -10,65 +10,63 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $books = [];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = $_POST["name"] ?? '';
-    $surname = $_POST["surname"] ?? '';
-    $birth_date = $_POST["birth_date"] ?? '';
-    $birth_place = $_POST["birth_place"] ?? '';
 
-    $conditions = [];
-    $params = [];
-    $types = '';
+$name = $_GET["name"] ?? '';
+$surname = $_GET["surname"] ?? '';
+$birth_date = $_GET["birth_date"] ?? '';
+$birth_place = $_GET["birth_place"] ?? '';
 
-    // Costruisci dinamicamente condizioni e parametri
-    if ($name !== '') {
-        $conditions[] = "name LIKE ?";
-        $params[] = "%$name%";
-        $types .= 's';  // 's' per stringa
-    }
-    if ($surname !== '') {
-        $conditions[] = "surname LIKE ?";
-        $params[] = "%$surname%";
-        $types .= 's';
-    }
-    if ($birth_date !== '') {
-        $conditions[] = "birth_date = ?";
-        $params[] = $birth_date;
-        $types .= 's'; 
-    }
-    if ($birth_place !== '') {
-        $conditions[] = "birth_place LIKE ?";
-        $params[] = "%$birth_place%";
-        $types .= 's';
-    }
+$conditions = [];
+$params = [];
+$types = '';
 
-    $sql = "SELECT name, surname, birth_date, birth_place FROM author";
-
-    if (count($conditions) > 0) {
-        $sql .= " WHERE " . implode(" AND ", $conditions);
-    }
-
-    $stmt = mysqli_prepare($link, $sql);
-    if ($stmt === false) {
-        die("Errore nella preparazione della query: " . mysqli_error($link));
-    }
-
-    if (count($params) > 0) {
-        // mysqli_stmt_bind_param richiede parametri passati per riferimento
-        mysqli_stmt_bind_param($stmt, $types, ...$params);
-    }
-
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    $authors = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $authors[] = $row;
-    }
-
-    mysqli_stmt_close($stmt);
+// Costruisci dinamicamente condizioni e parametri
+if ($name !== '') {
+    $conditions[] = "name LIKE ?";
+    $params[] = "%$name%";
+    $types .= 's';  // 's' per stringa
+}
+if ($surname !== '') {
+    $conditions[] = "surname LIKE ?";
+    $params[] = "%$surname%";
+    $types .= 's';
+}
+if ($birth_date !== '') {
+    $conditions[] = "birth_date = ?";
+    $params[] = $birth_date;
+    $types .= 's'; 
+}
+if ($birth_place !== '') {
+    $conditions[] = "birth_place LIKE ?";
+    $params[] = "%$birth_place%";
+    $types .= 's';
 }
 
+$sql = "SELECT name, surname, birth_date, birth_place FROM author";
+
+if (count($conditions) > 0) {
+    $sql .= " WHERE " . implode(" AND ", $conditions);
+}
+
+$stmt = mysqli_prepare($link, $sql);
+if ($stmt === false) {
+    die("Errore nella preparazione della query: " . mysqli_error($link));
+}
+
+if (count($params) > 0) {
+    // mysqli_stmt_bind_param richiede parametri passati per riferimento
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+$authors = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $authors[] = $row;
+}
+
+mysqli_stmt_close($stmt);
 mysqli_close($link);
 ?>
 
@@ -123,30 +121,29 @@ mysqli_close($link);
 
 
     <div class="container">
-
-    <h2>Lista Autori</h2>
+        <h2>Lista Autori</h2>
         
-    
-        <form class="header" method="POST" action="">
+        <form class="header" method="GET" action="">
             <div>
                 <label for="name">Nome:</label><br>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" value="<?php echo isset($_GET['name']) ? htmlspecialchars($_GET['name']) : ''; ?>">
             </div>
 
             <div>
                 <label for="surname">Cognome:</label><br>
-                <input type="text" id="surname" name="surname">
+                <input type="text" id="surname" name="surname" value="<?php echo isset($_GET['surname']) ? htmlspecialchars($_GET['surname']) : ''; ?>">
             </div>
 
             <div>
                 <label for="birth_date">Data di Nascita:</label><br>
-                <input type="date" id="birth_date" name="birth_date">
+                <input type="date" id="birth_date" name="birth_date" value="<?php echo isset($_GET['birth_date']) ? htmlspecialchars($_GET['birth_date']) : ''; ?>">
             </div>
 
             <div>
                 <label for="birth_place">Luogo di Nascita:</label><br>
-                <input type="text" id="birth_place" name="birth_place">
+                <input type="text" id="birth_place" name="birth_place" value="<?php echo isset($_GET['birth_place']) ? htmlspecialchars($_GET['birth_place']) : ''; ?>">
             </div>
+
             <div class="container-btn">
                 <button class="btn" type="submit">Cerca</button>
             </div>

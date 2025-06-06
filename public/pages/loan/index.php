@@ -7,7 +7,7 @@ $sql = "SELECT u.serial_number, u.name, u.surname, c.code, b.title, l.start_date
         INNER JOIN copy c ON c.code = l.copy_code
         INNER JOIN book b ON b.ISBN = c.ISBN
         WHERE l.return_date IS NULL
-        ORDER BY l.start_date ASC";
+        ORDER BY l.start_date DESC";
 
 $result = mysqli_query($link, $sql);
 
@@ -28,6 +28,7 @@ mysqli_close($link);
     <meta charset="UTF-8">
     <title>Biblioteca</title>
     <link rel="stylesheet" href="../../assets/style/global.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <style>
         table {
             width: 100%;
@@ -39,10 +40,11 @@ mysqli_close($link);
             padding: 12px;
             border: 1px solid #ddd;
             text-align: left;
+            background-color: transparent !important; 
         }
 
         th {    
-            background-color: #f4f4f4;
+            background-color: #f4f4f4 !important;
         }
     </style>
 </head>

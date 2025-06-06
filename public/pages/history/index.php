@@ -8,8 +8,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $users[] = $row;
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $serial_number = mysqli_real_escape_string($link, $_POST["serial_number"]);
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    $serial_number = mysqli_real_escape_string($link, $_GET["serial_number"]);
     
     $sql = "SELECT u.serial_number, u.name, u.surname, c.code, b.title, l.start_date, 
                     DATE_ADD(l.start_date, INTERVAL 30 DAY) AS end_date, l.return_date,
@@ -124,13 +124,14 @@ mysqli_close($link);
     <h2>Autori e libri</h2>
         
     
-        <form class="header" method="POST" action="">
+        <form class="header" method="GET" action="">
             <div>        
                 <label for="search">Seleziona Autore:</label><br>
                 <select name="serial_number" id="search" required>
                     <?php foreach($users as $user): ?>
-                        <option value="<?php echo $user["serial_number"];?>">
-                            <?php echo $user["serial_number"]." - ".$user["name"]." ".$user["surname"];?>                        
+                        <option value="<?php echo $user["serial_number"]; ?>" 
+                            <?php if (!empty($_GET["serial_number"]) && $_GET["serial_number"] == $user["serial_number"]) echo "selected"; ?>>
+                            <?php echo $user["serial_number"] . " - " . $user["name"] . " " . $user["surname"]; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

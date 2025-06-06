@@ -39,7 +39,7 @@
         <a href="/pages/loan/search.php">Ricerca Prestiti</a>
         <a href="/pages/book/index.php">Libri</a>
         <a href="/pages/book-author/index.php">Libri autori</a>
-        <a href="/pages/user/index.php">Autori</a>
+        <a href="/pages/author/index.php">Autori</a>
         <a href="/pages/user/index.php">Utenti</a>
         <a href="/pages/report/index.php">Report</a>
     </div>

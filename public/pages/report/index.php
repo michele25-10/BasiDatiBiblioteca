@@ -22,10 +22,11 @@
     }
 
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $start_date = mysqli_real_escape_string($link, $_POST["start_date"]);
-        $end_date = mysqli_real_escape_string($link, $_POST["end_date"]);
 
+    if(isset($_GET["start_date"]) && isset($_GET["end_date"])){
+        $start_date = mysqli_real_escape_string($link, $_GET["start_date"]);
+        $end_date = mysqli_real_escape_string($link, $_GET["end_date"]);
+        
         $sql = "SELECT c.department_name, COUNT(*) AS count_loan
                     FROM loan l
                     INNER JOIN copy c ON c.code = l.copy_code
@@ -36,7 +37,7 @@
         $loans = array(); 
         while ($row = mysqli_fetch_assoc($query)) {
             $loans[] = $row;
-        }
+        }        
     }
 
     mysqli_close($link);
@@ -110,17 +111,20 @@
 
         <h3>Numero di prestiti effettuati suddivisi per succursale</h3>
 
-        <form class="header" method="POST" action="">
+        <form class="header" method="GET" action="">
             <div>
                 <label for="start_date">Data di inizio:</label><br>
-                <input type="date" id="start_date" name="start_date">
-                </div>
+                <input type="date" id="start_date" name="start_date" 
+                    value="<?php echo isset($_GET['start_date']) ? htmlspecialchars($_GET['start_date']) : ''; ?>">
+            </div>
             <div>
                 <label for="end_date">Data di fine:</label><br>
-                <input type="date" id="end_date" name="end_date">
+                <input type="date" id="end_date" name="end_date" 
+                    value="<?php echo isset($_GET['end_date']) ? htmlspecialchars($_GET['end_date']) : ''; ?>">
             </div>
             <button class="btn" type="submit">Cerca</button>
         </form>
+
 
         <table>
             <thead>
