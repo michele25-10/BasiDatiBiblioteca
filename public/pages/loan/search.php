@@ -2,23 +2,40 @@
 include_once('../../config/connessione.php');
 
 $start_date = $_GET['start_date'] ?? '';
-$return_date = $_GET['return_date'] ?? '';
+$return_date = $_GET['end_date'] ?? '';
 $loans = [];
+$error = '';
+$noLoansMessage = '';
+
 
 if ($start_date && $return_date) {
-    // Ricerca tra intervallo date
-    $stmt = $link->prepare("
-        SELECT u.serial_number, u.name, u.surname, b.title, c.code, 
-               l.start_date, l.return_date
-        FROM loan l
-        JOIN user u ON l.serial_number = u.serial_number
-        JOIN copy c ON l.copy_code = c.code
-        JOIN book b ON c.ISBN = b.ISBN
-        WHERE l.start_date >= ? AND l.return_date <= ?
-    ");
-    $stmt->bind_param("ss", $start_date, $return_date);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($return_date < $start_date) {
+        $error = "La data di fine non può essere precedente alla data di inizio.";
+    } else {
+        // Ricerca tra intervallo date valido
+        $stmt = $link->prepare("
+            SELECT u.serial_number, u.name, u.surname, b.title, c.code, 
+                   l.start_date, l.return_date
+            FROM loan l
+            JOIN user u ON l.serial_number = u.serial_number
+            JOIN copy c ON l.copy_code = c.code
+            JOIN book b ON c.ISBN = b.ISBN
+            WHERE l.start_date >= ? AND l.return_date <= ?
+        ");
+        $stmt->bind_param("ss", $start_date, $return_date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $loans[] = $row;
+            }
+        }
+
+        if (empty($loans)) {
+            $noLoansMessage = "Nessun prestito nel range di date inserito.";
+        }
+    }
 } else {
     // Prestiti attivi che scadranno in futuro
     $result = $link->query("
@@ -33,7 +50,14 @@ if ($start_date && $return_date) {
         AND DATE_ADD(l.start_date, INTERVAL 30 DAY) >= CURDATE()
         ORDER BY due_date ASC
     ");
+
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $loans[] = $row;
+        }
+    }
 }
+
 
 if ($result) {
     while ($row = $result->fetch_assoc()) {
@@ -83,6 +107,14 @@ if ($result) {
         
         <button type="submit" class="btn btn-success">Cerca</button>
     </form>
+    <?php if ($error): ?>
+     <p style="color: red; font-weight: bold;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
+    <?php if ($noLoansMessage): ?>
+      <p style="color: darkorange; font-weight: bold;"><?= htmlspecialchars($noLoansMessage) ?></p>
+    <?php endif; ?>
+
 
     <table>
         <thead>
