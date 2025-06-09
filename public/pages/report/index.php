@@ -22,8 +22,7 @@
     }
 
 
-
-    if(isset($_GET["start_date"]) && isset($_GET["end_date"])){
+    if (!empty($_GET["start_date"]) && !empty($_GET["end_date"])){
         $start_date = mysqli_real_escape_string($link, $_GET["start_date"]);
         $end_date = mysqli_real_escape_string($link, $_GET["end_date"]);
         
