@@ -6,9 +6,9 @@ $return_date = $_GET['end_date'] ?? '';
 $loans = [];
 $error = '';
 $noLoansMessage = '';
-
-
-if ($start_date && $return_date) {
+if ($start_date && !$return_date) {
+    $error = "Inserisci anche la data di fine prestito.";
+}elseif ($start_date && $return_date) {
     if ($return_date < $start_date) {
         $error = "La data di fine non può essere precedente alla data di inizio.";
     } else {
@@ -58,12 +58,6 @@ if ($start_date && $return_date) {
     }
 }
 
-
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $loans[] = $row;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -91,6 +85,11 @@ if ($result) {
 <?php include '../../common/navbar.php'; ?>
 <div class="container">
     <h1>Ricerca Prestiti per Data</h1>
+	<?php if($error): ?>
+	<div style="color: red; font-weight: bold; margin-bottom: 20px;">
+		<?= htmlspecialchars($error) ?>
+	</div>
+	<?php endif; ?>
 
     <form method="GET" class="header">
         <div class="input-container">
