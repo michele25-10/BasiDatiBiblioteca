@@ -12,15 +12,16 @@
     }
 
 
-    $sql = "SELECT c.code, c.ISBN, b.title, c.department_name
-                FROM copy c
-                INNER JOIN book b on b.ISBN=c.ISBN 
-                WHERE NOT EXISTS (
-                    SELECT 1 
-                    FROM loan l 
-                    WHERE l.copy_code = c.code
-                )
-                ORDER BY c.code ASC";
+    $sql = "SELECT c.code,b.ISBN, b.title, c.department_name
+            FROM copy c
+            JOIN book b ON c.ISBN = b.ISBN
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM loan l
+                WHERE l.copy_code = c.code
+                AND l.return_date IS NULL
+            )
+            order by c.code;";
 
     $result = mysqli_query($link, $sql);
     $books = array(); 
