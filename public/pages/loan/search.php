@@ -85,12 +85,6 @@ if ($start_date && !$return_date) {
 <?php include '../../common/navbar.php'; ?>
 <div class="container">
     <h1>Ricerca Prestiti per Data</h1>
-	<?php if($error): ?>
-	<div style="color: red; font-weight: bold; margin-bottom: 20px;">
-		<?= htmlspecialchars($error) ?>
-	</div>
-	<?php endif; ?>
-
     <form method="GET" class="header">
         <div class="input-container">
             <div>
