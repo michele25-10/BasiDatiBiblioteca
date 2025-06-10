@@ -49,7 +49,7 @@ if ($start_date && !$return_date) {
         JOIN book b ON c.ISBN = b.ISBN
         WHERE l.return_date IS NULL
         AND DATE_ADD(l.start_date, INTERVAL 30 DAY) >= CURDATE()
-        ORDER BY due_date ASC
+        ORDER BY end_date ASC
     ");
 
     if ($result) {
