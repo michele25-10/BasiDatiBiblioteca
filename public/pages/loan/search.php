@@ -15,12 +15,13 @@ if ($start_date && !$return_date) {
         // Ricerca tra intervallo date valido
         $stmt = $link->prepare("
             SELECT u.serial_number, u.name, u.surname, b.title, c.code, 
-                   l.start_date, l.return_date
+                   l.start_date, DATE_ADD(l.start_date, INTERVAL 30 DAY) AS end_date,
+                   l.return_date
             FROM loan l
             JOIN user u ON l.serial_number = u.serial_number
             JOIN copy c ON l.copy_code = c.code
             JOIN book b ON c.ISBN = b.ISBN
-            WHERE l.start_date >= ? AND l.return_date <= ?
+            WHERE l.start_date between ? AND ?
         ");
         $stmt->bind_param("ss", $start_date, $return_date);
         $stmt->execute();
@@ -41,7 +42,7 @@ if ($start_date && !$return_date) {
     $result = $link->query("
         SELECT u.serial_number, u.name, u.surname, b.title, c.code, 
                l.start_date, l.return_date,
-               DATE_ADD(l.start_date, INTERVAL 30 DAY) AS due_date
+               DATE_ADD(l.start_date, INTERVAL 30 DAY) AS end_date, l.return_date
         FROM loan l
         JOIN user u ON l.serial_number = u.serial_number    
         JOIN copy c ON l.copy_code = c.code
@@ -79,6 +80,8 @@ if ($start_date && !$return_date) {
             width: 85px;
             height: 30px; 
         }
+
+        td{background-color: transparent}
     </style>
 </head>
 <body>
@@ -118,7 +121,8 @@ if ($start_date && !$return_date) {
                 <th>Titolo Libro</th>
                 <th>Codice Copia</th>
                 <th>Data Inizio</th>
-                <th>Data Ritorno</th>
+                <th>Data Fine Prestito</th>
+                <th>Data Restituzione</th>
             </tr>
         </thead>
         <tbody>
@@ -131,6 +135,7 @@ if ($start_date && !$return_date) {
                         <td><?= htmlspecialchars($loan['title']) ?></td>
                         <td><?= htmlspecialchars($loan['code']) ?></td>
                         <td><?= explode(" ", $loan['start_date'])[0] ?></td>
+                        <td><?= explode(" ", $loan['end_date'])[0] ?></td>           
                         <td><?= $loan['return_date'] ? explode(" ", $loan['return_date'])[0] : '—' ?></td>
                     </tr>
                 <?php endforeach; ?>
